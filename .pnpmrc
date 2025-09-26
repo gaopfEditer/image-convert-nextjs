@@ -1,0 +1,15 @@
+# pnpm 配置文件
+# 使用严格的 peer dependencies
+strict-peer-dependencies=false
+
+# 自动安装 peer dependencies
+auto-install-peers=true
+
+# 使用硬链接节省磁盘空间
+symlink=false
+
+# 设置存储路径
+store-dir=node_modules/.pnpm
+
+# 设置缓存目录
+cache-dir=node_modules/.cache

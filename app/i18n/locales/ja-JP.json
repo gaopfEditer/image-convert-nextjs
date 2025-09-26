@@ -1,0 +1,230 @@
+{
+  "common": {
+    "upload": "アップロード",
+    "download": "ダウンロード",
+    "help": "ヘルプ",
+    "login": "ログイン",
+    "register": "登録",
+    "logout": "ログアウト",
+    "cancel": "キャンセル",
+    "confirm": "確認",
+    "reset": "リセット",
+    "clear": "クリア",
+    "start": "開始",
+    "processing": "処理中",
+    "completed": "完了",
+    "error": "エラー",
+    "success": "成功",
+    "warning": "警告",
+    "info": "情報"
+  },
+  "languages": {
+    "zh-CN": "简体中文",
+    "en-US": "English",
+    "ja-JP": "日本語"
+  },
+  "header": {
+    "title": "プロフェッショナル画像処理ツール",
+    "subtitle": "フォーマット変換、圧縮最適化、クロップ・スケール、AI処理など多機能をサポート"
+  },
+  "user": {
+    "guest": "ゲストユーザー",
+    "free": "無料ユーザー",
+    "vip": "VIPメンバー",
+    "premium": "プレミアムメンバー",
+    "dailyUsage": "本日の使用量",
+    "storage": "ストレージ",
+    "upgrade": "メンバーシップアップグレード",
+    "loginRegister": "ログイン/登録"
+  },
+  "tabs": {
+    "convert": "フォーマット変換",
+    "compress": "画像圧縮",
+    "crop": "クロップ・スケール",
+    "ai": "AI機能"
+  },
+  "formatConvert": {
+    "title": "フォーマット変換",
+    "description": "複数の画像フォーマット間の変換をサポート、インテリジェントファイルサイズ最適化",
+    "uploadText": "クリックまたはドラッグして画像をアップロード",
+    "uploadTextMultiple": "クリックまたはドラッグして画像を追加",
+    "supportedFormats": "JPG、PNG、WebP、AVIF、TIFF、HEICなどのフォーマットをサポート",
+    "selectFormat": "出力フォーマットを選択",
+    "startConvert": "変換開始",
+    "converting": "変換中...",
+    "results": "変換結果",
+    "downloadAll": "すべてダウンロード",
+    "compressionRate": "圧縮率",
+    "fileSize": "ファイルサイズ",
+    "selectedImages": "選択された画像",
+    "clearAll": "すべてクリア",
+    "dailyLimit": "無料ユーザーは1日{max}枚まで処理可能、使用済み{used}枚"
+  },
+  "imageCompress": {
+    "title": "画像圧縮",
+    "description": "品質を保ちながらファイルサイズを大幅に削減するインテリジェント圧縮アルゴリズム",
+    "compressSettings": "圧縮設定",
+    "algorithm": "圧縮アルゴリズム",
+    "quality": "圧縮品質",
+    "fileSizeLimit": "目標ファイルサイズ制限",
+    "startCompress": "圧縮開始",
+    "compressing": "圧縮中...",
+    "results": "圧縮結果",
+    "originalSize": "元のサイズ",
+    "compressedSize": "圧縮後",
+    "qualityPercent": "品質"
+  },
+  "imageCrop": {
+    "title": "クロップ・スケール",
+    "description": "複数のアスペクト比とプリセットをサポートする精密な画像クロップ・スケールツール",
+    "cropSettings": "クロップ設定",
+    "aspectRatio": "アスペクト比",
+    "targetSize": "目標サイズ",
+    "width": "幅 (px)",
+    "height": "高さ (px)",
+    "keepAspectRatio": "アスペクト比を保持",
+    "transform": "画像変換",
+    "rotation": "回転角度",
+    "flipHorizontal": "水平反転",
+    "flipVertical": "垂直反転",
+    "presets": "常用プリセット",
+    "socialMedia": "ソーシャルメディア",
+    "website": "ウェブサイト用途",
+    "startCrop": "クロップ開始",
+    "cropping": "クロップ中...",
+    "results": "クロップ結果",
+    "dimensions": "サイズ"
+  },
+  "aiFeatures": {
+    "title": "AI機能",
+    "description": "AIを活用した画像処理・分析機能",
+    "selectOperation": "AI操作を選択",
+    "startProcess": "AI処理開始",
+    "processing": "AI処理中...",
+    "results": "AI処理結果",
+    "confidence": "信頼度",
+    "requiresVip": "メンバーシップ必要",
+    "vipRequired": "AI機能にはVIPまたはプレミアムメンバーシップが必要です",
+    "upgradeToVip": "VIPまたはプレミアムにアップグレードしてすべてのAI機能をご利用ください",
+    "operations": {
+      "backgroundRemove": "背景除去",
+      "enhance": "画像強化",
+      "styleTransfer": "スタイル変換",
+      "upscale": "超解像度",
+      "colorize": "自動着色",
+      "repair": "古い写真修復"
+    },
+    "descriptions": {
+      "backgroundRemove": "AIが背景を自動識別・除去",
+      "enhance": "画像の鮮明度と品質を向上",
+      "styleTransfer": "異なる芸術スタイルに変換",
+      "upscale": "AIで画像を拡大し鮮明度を保持",
+      "colorize": "白黒写真を自動着色",
+      "repair": "破損・ぼやけた古い写真を修復"
+    }
+  },
+  "login": {
+    "title": "ログイン",
+    "registerTitle": "登録",
+    "name": "ユーザー名",
+    "email": "メールアドレス",
+    "password": "パスワード",
+    "confirmPassword": "パスワード確認",
+    "loginButton": "ログイン",
+    "registerButton": "登録",
+    "switchToRegister": "アカウントをお持ちでない方は登録",
+    "switchToLogin": "アカウントをお持ちの方はログイン",
+    "nameRequired": "ユーザー名を入力してください",
+    "nameMinLength": "ユーザー名は2文字以上で入力してください",
+    "emailRequired": "メールアドレスを入力してください",
+    "emailInvalid": "有効なメールアドレスを入力してください",
+    "passwordRequired": "パスワードを入力してください",
+    "passwordMinLength": "パスワードは6文字以上で入力してください",
+    "confirmPasswordRequired": "パスワードを確認してください",
+    "passwordMismatch": "パスワードが一致しません"
+  },
+  "membership": {
+    "title": "メンバーシップアップグレード",
+    "subtitle": "あなたに適したメンバーシッププランを選択",
+    "currentPlan": "現在のプラン",
+    "mostPopular": "最も人気",
+    "upgradeNow": "今すぐアップグレード",
+    "guarantee": "メンバーシップ特典保証",
+    "guaranteeItems": [
+      "7日間返金保証",
+      "データセキュリティ暗号化ストレージ",
+      "24時間テクニカルサポート",
+      "いつでもキャンセル可能"
+    ],
+    "plans": {
+      "vip": {
+        "name": "VIPメンバー",
+        "price": "29",
+        "period": "月",
+        "features": [
+          "1日100枚の画像処理",
+          "10GBクラウドストレージ",
+          "バッチ処理機能",
+          "高度な圧縮アルゴリズム",
+          "優先カスタマーサポート",
+          "透かし除去機能"
+        ]
+      },
+      "premium": {
+        "name": "プレミアムメンバー",
+        "price": "99",
+        "period": "月",
+        "features": [
+          "無制限画像処理",
+          "100GBクラウドストレージ",
+          "AIインテリジェント処理",
+          "プロフェッショナル圧縮",
+          "24/7専用サポート",
+          "すべての高度機能",
+          "APIアクセス",
+          "チームコラボレーション"
+        ]
+      }
+    }
+  },
+  "userProfile": {
+    "title": "ユーザーセンター",
+    "membershipInfo": "メンバーシップ情報",
+    "membershipType": "メンバーシップタイプ",
+    "expiryDate": "有効期限",
+    "dailyUsage": "本日の使用量",
+    "storageSpace": "ストレージ容量",
+    "storageUsage": "ストレージ使用率",
+    "permissions": "機能権限",
+    "history": "履歴",
+    "upgrade": "メンバーシップアップグレード"
+  },
+  "featureGuide": {
+    "title": "機能ヘルプ",
+    "close": "了解しました",
+    "needHelp": "さらにヘルプが必要ですか？カスタマーサービスにお問い合わせください"
+  },
+  "errors": {
+    "selectImageFiles": "画像ファイルを選択してください",
+    "dailyLimitExceeded": "無料ユーザーは1日{max}枚まで処理可能です。より多くの機能をご利用いただくにはメンバーシップをアップグレードしてください",
+    "conversionFailed": "画像変換に失敗しました。再試行してください",
+    "compressionFailed": "画像圧縮に失敗しました。再試行してください",
+    "cropFailed": "画像クロップに失敗しました。再試行してください",
+    "aiProcessFailed": "AI処理に失敗しました。再試行してください",
+    "unknownOperation": "不明なAI操作です"
+  },
+  "tips": {
+    "webpBest": "最高の圧縮効果を得るにはWebPフォーマットをお勧めします",
+    "pngTransparent": "PNGフォーマットは透明背景が必要な画像に適しています",
+    "largeFileWait": "大きなファイルの変換には時間がかかる場合があります。お待ちください",
+    "qualityBalance": "品質を80-90に設定すると最適なバランスが得られます",
+    "backupOriginal": "圧縮前に元の画像をバックアップすることをお勧めします",
+    "batchEfficiency": "バッチ圧縮により効率が大幅に向上します",
+    "presetRatio": "プリセット比率を使用すると異なるプラットフォームに素早く適応できます",
+    "smartCrop": "スマートクロップは画像の主体を自動識別できます",
+    "keepAspectRatio": "アスペクト比を保持して画像の歪みを防ぎます",
+    "aiVipRequired": "AI機能にはVIPまたはプレミアムメンバーシップが必要です",
+    "aiProcessingTime": "処理に時間がかかる場合があります。お待ちください",
+    "uploadClearImage": "最良の結果を得るには鮮明な元画像をアップロードしてください"
+  }
+}

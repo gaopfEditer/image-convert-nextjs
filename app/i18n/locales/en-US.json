@@ -1,0 +1,230 @@
+{
+  "common": {
+    "upload": "Upload",
+    "download": "Download",
+    "help": "Help",
+    "login": "Login",
+    "register": "Register",
+    "logout": "Logout",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "reset": "Reset",
+    "clear": "Clear",
+    "start": "Start",
+    "processing": "Processing",
+    "completed": "Completed",
+    "error": "Error",
+    "success": "Success",
+    "warning": "Warning",
+    "info": "Info"
+  },
+  "languages": {
+    "zh-CN": "简体中文",
+    "en-US": "English",
+    "ja-JP": "日本語"
+  },
+  "header": {
+    "title": "Professional Image Processing Tool",
+    "subtitle": "Support format conversion, compression optimization, crop scaling, AI processing and more"
+  },
+  "user": {
+    "guest": "Guest User",
+    "free": "Free User",
+    "vip": "VIP Member",
+    "premium": "Premium Member",
+    "dailyUsage": "Daily Usage",
+    "storage": "Storage",
+    "upgrade": "Upgrade Membership",
+    "loginRegister": "Login/Register"
+  },
+  "tabs": {
+    "convert": "Format Convert",
+    "compress": "Image Compress",
+    "crop": "Crop & Scale",
+    "ai": "AI Features"
+  },
+  "formatConvert": {
+    "title": "Format Conversion",
+    "description": "Support conversion between multiple image formats with intelligent file size optimization",
+    "uploadText": "Click or drag to upload images",
+    "uploadTextMultiple": "Click or drag to add more images",
+    "supportedFormats": "Support JPG, PNG, WebP, AVIF, TIFF, HEIC and other formats",
+    "selectFormat": "Select Output Format",
+    "startConvert": "Start Conversion",
+    "converting": "Converting...",
+    "results": "Conversion Results",
+    "downloadAll": "Download All",
+    "compressionRate": "Compression Rate",
+    "fileSize": "File Size",
+    "selectedImages": "Selected Images",
+    "clearAll": "Clear All",
+    "dailyLimit": "Free users can process {max} images daily, used {used} images"
+  },
+  "imageCompress": {
+    "title": "Image Compression",
+    "description": "Intelligent compression algorithms that significantly reduce file size while maintaining quality",
+    "compressSettings": "Compression Settings",
+    "algorithm": "Compression Algorithm",
+    "quality": "Compression Quality",
+    "fileSizeLimit": "Target File Size Limit",
+    "startCompress": "Start Compression",
+    "compressing": "Compressing...",
+    "results": "Compression Results",
+    "originalSize": "Original",
+    "compressedSize": "Compressed",
+    "qualityPercent": "Quality"
+  },
+  "imageCrop": {
+    "title": "Crop & Scale",
+    "description": "Precise image cropping and scaling tools with multiple aspect ratios and presets",
+    "cropSettings": "Crop Settings",
+    "aspectRatio": "Aspect Ratio",
+    "targetSize": "Target Size",
+    "width": "Width (px)",
+    "height": "Height (px)",
+    "keepAspectRatio": "Keep Aspect Ratio",
+    "transform": "Image Transform",
+    "rotation": "Rotation Angle",
+    "flipHorizontal": "Flip Horizontal",
+    "flipVertical": "Flip Vertical",
+    "presets": "Common Presets",
+    "socialMedia": "Social Media",
+    "website": "Website Use",
+    "startCrop": "Start Cropping",
+    "cropping": "Cropping...",
+    "results": "Crop Results",
+    "dimensions": "Dimensions"
+  },
+  "aiFeatures": {
+    "title": "AI Features",
+    "description": "AI-powered image processing and analysis features",
+    "selectOperation": "Select AI Operation",
+    "startProcess": "Start AI Processing",
+    "processing": "AI Processing...",
+    "results": "AI Processing Results",
+    "confidence": "Confidence",
+    "requiresVip": "Requires Membership",
+    "vipRequired": "AI features require VIP or Premium membership",
+    "upgradeToVip": "Upgrade to VIP or Premium to use all AI features",
+    "operations": {
+      "backgroundRemove": "Background Removal",
+      "enhance": "Image Enhancement",
+      "styleTransfer": "Style Transfer",
+      "upscale": "Super Resolution",
+      "colorize": "Colorization",
+      "repair": "Photo Restoration"
+    },
+    "descriptions": {
+      "backgroundRemove": "AI intelligently identifies and removes background",
+      "enhance": "Improve image clarity and quality",
+      "styleTransfer": "Convert images to different artistic styles",
+      "upscale": "AI upscale images while maintaining clarity",
+      "colorize": "Automatically colorize black and white photos",
+      "repair": "Restore damaged and blurry old photos"
+    }
+  },
+  "login": {
+    "title": "Login",
+    "registerTitle": "Register",
+    "name": "Username",
+    "email": "Email",
+    "password": "Password",
+    "confirmPassword": "Confirm Password",
+    "loginButton": "Login",
+    "registerButton": "Register",
+    "switchToRegister": "Don't have an account? Register now",
+    "switchToLogin": "Already have an account? Login now",
+    "nameRequired": "Please enter username",
+    "nameMinLength": "Username must be at least 2 characters",
+    "emailRequired": "Please enter email",
+    "emailInvalid": "Please enter a valid email address",
+    "passwordRequired": "Please enter password",
+    "passwordMinLength": "Password must be at least 6 characters",
+    "confirmPasswordRequired": "Please confirm password",
+    "passwordMismatch": "Passwords do not match"
+  },
+  "membership": {
+    "title": "Upgrade Membership",
+    "subtitle": "Choose the membership plan that suits you",
+    "currentPlan": "Current Plan",
+    "mostPopular": "Most Popular",
+    "upgradeNow": "Upgrade Now",
+    "guarantee": "Membership Benefits Guarantee",
+    "guaranteeItems": [
+      "7-day money-back guarantee",
+      "Data security encryption storage",
+      "24-hour technical support",
+      "Cancel subscription anytime"
+    ],
+    "plans": {
+      "vip": {
+        "name": "VIP Member",
+        "price": "29",
+        "period": "month",
+        "features": [
+          "Process 100 images daily",
+          "10GB cloud storage",
+          "Batch processing",
+          "Advanced compression algorithms",
+          "Priority customer support",
+          "Watermark removal"
+        ]
+      },
+      "premium": {
+        "name": "Premium Member",
+        "price": "99",
+        "period": "month",
+        "features": [
+          "Unlimited image processing",
+          "100GB cloud storage",
+          "AI intelligent processing",
+          "Professional compression",
+          "24/7 dedicated support",
+          "All advanced features",
+          "API access",
+          "Team collaboration"
+        ]
+      }
+    }
+  },
+  "userProfile": {
+    "title": "User Center",
+    "membershipInfo": "Membership Info",
+    "membershipType": "Membership Type",
+    "expiryDate": "Expiry Date",
+    "dailyUsage": "Daily Usage",
+    "storageSpace": "Storage Space",
+    "storageUsage": "Storage Usage",
+    "permissions": "Feature Permissions",
+    "history": "History",
+    "upgrade": "Upgrade Membership"
+  },
+  "featureGuide": {
+    "title": "Feature Help",
+    "close": "Got it",
+    "needHelp": "Need more help? Contact customer service"
+  },
+  "errors": {
+    "selectImageFiles": "Please select image files",
+    "dailyLimitExceeded": "Free users can process up to {max} images daily, please upgrade membership for more features",
+    "conversionFailed": "Image conversion failed, please try again",
+    "compressionFailed": "Image compression failed, please try again",
+    "cropFailed": "Image cropping failed, please try again",
+    "aiProcessFailed": "AI processing failed, please try again",
+    "unknownOperation": "Unknown AI operation"
+  },
+  "tips": {
+    "webpBest": "Use WebP format for best compression results",
+    "pngTransparent": "PNG format is suitable for images with transparent backgrounds",
+    "largeFileWait": "Large file conversion may take time, please be patient",
+    "qualityBalance": "Set quality to 80-90 for best balance",
+    "backupOriginal": "Backup original images before compression",
+    "batchEfficiency": "Batch compression significantly improves efficiency",
+    "presetRatio": "Use preset ratios to quickly adapt to different platforms",
+    "smartCrop": "Smart crop can automatically identify image subjects",
+    "keepAspectRatio": "Keep aspect ratio to avoid image distortion",
+    "aiVipRequired": "AI features require VIP or Premium membership",
+    "aiProcessingTime": "Processing may take time, please be patient",
+    "uploadClearImage": "Upload clear original images for best results"
+  }
+}

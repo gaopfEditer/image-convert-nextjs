@@ -1,0 +1,230 @@
+{
+  "common": {
+    "upload": "上传",
+    "download": "下载",
+    "help": "帮助",
+    "login": "登录",
+    "register": "注册",
+    "logout": "退出登录",
+    "cancel": "取消",
+    "confirm": "确认",
+    "reset": "重置",
+    "clear": "清空",
+    "start": "开始",
+    "processing": "处理中",
+    "completed": "完成",
+    "error": "错误",
+    "success": "成功",
+    "warning": "警告",
+    "info": "信息"
+  },
+  "languages": {
+    "zh-CN": "简体中文",
+    "en-US": "English",
+    "ja-JP": "日本語"
+  },
+  "header": {
+    "title": "专业图片处理工具",
+    "subtitle": "支持格式转换、压缩优化、裁剪缩放、AI处理等多种功能"
+  },
+  "user": {
+    "guest": "游客用户",
+    "free": "普通用户",
+    "vip": "VIP会员",
+    "premium": "特级会员",
+    "dailyUsage": "今日已使用",
+    "storage": "存储",
+    "upgrade": "升级会员",
+    "loginRegister": "登录/注册"
+  },
+  "tabs": {
+    "convert": "格式转换",
+    "compress": "图片压缩",
+    "crop": "裁剪缩放",
+    "ai": "AI功能"
+  },
+  "formatConvert": {
+    "title": "格式转换",
+    "description": "支持多种图片格式之间的转换，智能优化文件大小",
+    "uploadText": "点击或拖拽上传图片",
+    "uploadTextMultiple": "点击或拖拽添加更多图片",
+    "supportedFormats": "支持 JPG、PNG、WebP、AVIF、TIFF、HEIC 等格式",
+    "selectFormat": "选择输出格式",
+    "startConvert": "开始转换",
+    "converting": "转换中...",
+    "results": "转换结果",
+    "downloadAll": "下载全部",
+    "compressionRate": "压缩率",
+    "fileSize": "文件大小",
+    "selectedImages": "已选择的图片",
+    "clearAll": "清空所有",
+    "dailyLimit": "普通用户每天可处理 {max} 张图片，已使用 {used} 张"
+  },
+  "imageCompress": {
+    "title": "图片压缩",
+    "description": "智能压缩算法，在保持质量的同时大幅减小文件大小",
+    "compressSettings": "压缩设置",
+    "algorithm": "压缩算法",
+    "quality": "压缩质量",
+    "fileSizeLimit": "目标文件大小限制",
+    "startCompress": "开始压缩",
+    "compressing": "压缩中...",
+    "results": "压缩结果",
+    "originalSize": "原始",
+    "compressedSize": "压缩后",
+    "qualityPercent": "质量"
+  },
+  "imageCrop": {
+    "title": "裁剪缩放",
+    "description": "精确的图片裁剪和缩放工具，支持多种比例和预设",
+    "cropSettings": "裁剪设置",
+    "aspectRatio": "裁剪比例",
+    "targetSize": "目标尺寸",
+    "width": "宽度 (px)",
+    "height": "高度 (px)",
+    "keepAspectRatio": "保持宽高比",
+    "transform": "图片变换",
+    "rotation": "旋转角度",
+    "flipHorizontal": "水平翻转",
+    "flipVertical": "垂直翻转",
+    "presets": "常用预设",
+    "socialMedia": "社交媒体",
+    "website": "网站用途",
+    "startCrop": "开始裁剪",
+    "cropping": "裁剪中...",
+    "results": "裁剪结果",
+    "dimensions": "尺寸"
+  },
+  "aiFeatures": {
+    "title": "AI功能",
+    "description": "基于人工智能的图片处理和分析功能",
+    "selectOperation": "选择AI操作",
+    "startProcess": "开始AI处理",
+    "processing": "AI处理中...",
+    "results": "AI处理结果",
+    "confidence": "置信度",
+    "requiresVip": "需要会员权限",
+    "vipRequired": "AI功能需要VIP或特级会员权限",
+    "upgradeToVip": "升级为VIP或特级会员即可使用所有AI功能",
+    "operations": {
+      "backgroundRemove": "背景移除",
+      "enhance": "图片增强",
+      "styleTransfer": "风格转换",
+      "upscale": "超分辨率",
+      "colorize": "智能上色",
+      "repair": "老照片修复"
+    },
+    "descriptions": {
+      "backgroundRemove": "AI智能识别并移除背景",
+      "enhance": "提升图片清晰度和质量",
+      "styleTransfer": "将图片转换为不同艺术风格",
+      "upscale": "AI放大图片并保持清晰度",
+      "colorize": "为黑白照片自动上色",
+      "repair": "修复破损和模糊的老照片"
+    }
+  },
+  "login": {
+    "title": "登录",
+    "registerTitle": "注册",
+    "name": "用户名",
+    "email": "邮箱",
+    "password": "密码",
+    "confirmPassword": "确认密码",
+    "loginButton": "登录",
+    "registerButton": "注册",
+    "switchToRegister": "还没有账号？立即注册",
+    "switchToLogin": "已有账号？立即登录",
+    "nameRequired": "请输入用户名",
+    "nameMinLength": "用户名至少2位",
+    "emailRequired": "请输入邮箱",
+    "emailInvalid": "请输入有效的邮箱地址",
+    "passwordRequired": "请输入密码",
+    "passwordMinLength": "密码至少6位",
+    "confirmPasswordRequired": "请确认密码",
+    "passwordMismatch": "两次密码输入不一致"
+  },
+  "membership": {
+    "title": "升级会员",
+    "subtitle": "选择适合您的会员套餐",
+    "currentPlan": "当前套餐",
+    "mostPopular": "最受欢迎",
+    "upgradeNow": "立即升级",
+    "guarantee": "会员权益保障",
+    "guaranteeItems": [
+      "7天无理由退款保障",
+      "数据安全加密存储",
+      "24小时技术支持",
+      "随时可取消订阅"
+    ],
+    "plans": {
+      "vip": {
+        "name": "VIP会员",
+        "price": "29",
+        "period": "月",
+        "features": [
+          "每日处理 100 张图片",
+          "10GB 云存储空间",
+          "批量处理功能",
+          "高级压缩算法",
+          "优先客服支持",
+          "去除水印功能"
+        ]
+      },
+      "premium": {
+        "name": "特级会员",
+        "price": "99",
+        "period": "月",
+        "features": [
+          "无限图片处理",
+          "100GB 云存储空间",
+          "AI 智能处理",
+          "专业级压缩",
+          "24/7 专属客服",
+          "所有高级功能",
+          "API 接口访问",
+          "团队协作功能"
+        ]
+      }
+    }
+  },
+  "userProfile": {
+    "title": "用户中心",
+    "membershipInfo": "会员信息",
+    "membershipType": "会员类型",
+    "expiryDate": "到期时间",
+    "dailyUsage": "今日使用",
+    "storageSpace": "存储空间",
+    "storageUsage": "存储使用率",
+    "permissions": "功能权限",
+    "history": "历史记录",
+    "upgrade": "升级会员"
+  },
+  "featureGuide": {
+    "title": "功能帮助",
+    "close": "我知道了",
+    "needHelp": "需要更多帮助？请联系客服"
+  },
+  "errors": {
+    "selectImageFiles": "请选择图片文件",
+    "dailyLimitExceeded": "普通用户每天最多处理 {max} 张图片，请升级会员享受更多功能",
+    "conversionFailed": "图片转换失败，请重试",
+    "compressionFailed": "图片压缩失败，请重试",
+    "cropFailed": "图片裁剪失败，请重试",
+    "aiProcessFailed": "AI处理失败，请重试",
+    "unknownOperation": "未知的AI操作"
+  },
+  "tips": {
+    "webpBest": "建议使用WebP格式获得最佳压缩效果",
+    "pngTransparent": "PNG格式适合需要透明背景的图片",
+    "largeFileWait": "大文件转换可能需要较长时间，请耐心等待",
+    "qualityBalance": "质量设置为80-90可获得最佳平衡",
+    "backupOriginal": "压缩前建议备份原图",
+    "batchEfficiency": "批量压缩可显著提高效率",
+    "presetRatio": "使用预设比例可快速适配不同平台",
+    "smartCrop": "智能裁剪能自动识别图片主体",
+    "keepAspectRatio": "保持宽高比避免图片变形",
+    "aiVipRequired": "AI功能需要VIP或特级会员权限",
+    "aiProcessingTime": "处理时间可能较长，请耐心等待",
+    "uploadClearImage": "建议上传清晰的原图获得最佳效果"
+  }
+}
