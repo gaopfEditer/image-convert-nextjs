@@ -29,7 +29,7 @@ export function useImageUpload() {
       
       return {
         success: true,
-        imageId: result.imageId,
+        imageId: result.id,
         url: result.url,
       };
     } catch (error) {
@@ -44,35 +44,35 @@ export function useImageUpload() {
     }
   };
 
-  const convertImage = async (imageId: string, targetFormat: string) => {
+  const convertImage = async (file: File, targetFormat: string) => {
     try {
-      const result = await imageApi.convert(imageId, targetFormat);
-      return { success: true, taskId: result.taskId };
+      const result = await imageApi.convert(file, { format: targetFormat });
+      return { success: true, taskId: result.id };
     } catch (error) {
       console.error('转换失败:', error);
       return { success: false, error: error instanceof Error ? error.message : '转换失败' };
     }
   };
 
-  const compressImage = async (imageId: string, quality: number) => {
+  const compressImage = async (file: File, quality: number) => {
     try {
-      const result = await imageApi.compress(imageId, quality);
-      return { success: true, taskId: result.taskId };
+      const result = await imageApi.compress(file, { quality });
+      return { success: true, taskId: result.id };
     } catch (error) {
       console.error('压缩失败:', error);
       return { success: false, error: error instanceof Error ? error.message : '压缩失败' };
     }
   };
 
-  const cropImage = async (imageId: string, cropData: {
+  const cropImage = async (file: File, cropData: {
     x: number;
     y: number;
     width: number;
     height: number;
   }) => {
     try {
-      const result = await imageApi.crop(imageId, cropData);
-      return { success: true, taskId: result.taskId };
+      const result = await imageApi.crop(file, cropData);
+      return { success: true, taskId: result.id };
     } catch (error) {
       console.error('裁剪失败:', error);
       return { success: false, error: error instanceof Error ? error.message : '裁剪失败' };
