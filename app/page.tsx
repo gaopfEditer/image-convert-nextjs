@@ -2,17 +2,24 @@
 
 import { useState, useCallback, useEffect } from 'react'
 import { Image as ImageIcon, LogIn, User, HelpCircle, Crown } from 'lucide-react'
-import LoginModal from './components/LoginModal'
-import UserProfile from './components/UserProfile'
-import MembershipModal from './components/MembershipModal'
-import FeatureGuide from './components/FeatureGuide'
-import LocaleSelector from './components/LocaleSelector'
-import FormatConvert from './components/features/FormatConvert'
-import ImageCompress from './components/features/ImageCompress'
-import ImageCrop from './components/features/ImageCrop'
-import AIFeatures from './components/features/AIFeatures'
+import { 
+  LoginModal, 
+  UserProfile, 
+  MembershipModal, 
+  FeatureGuide,
+  FormatConvert, 
+  ImageCompress, 
+  ImageCrop, 
+  AIFeatures 
+} from './pages'
+import { 
+  LocaleSelector
+} from './components'
 import { User as UserType, Membership, HistoryRecord } from './types/user'
 import { useI18nContext } from './i18n/context'
+import { safeCreateDate, createFutureDate } from './lib/dateUtils'
+import { userApi, api } from './lib/api'
+import { useUser } from './hooks/useUser'
 
 export default function ImageConverter() {
   const { t, locale } = useI18nContext()
@@ -23,10 +30,24 @@ export default function ImageConverter() {
   const [user, setUser] = useState<UserType | null>(null)
   const [history, setHistory] = useState<HistoryRecord[]>([])
   const [isClient, setIsClient] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
 
-  // 客户端挂载标记
+  // 客户端挂载标记和健康检查
   useEffect(() => {
     setIsClient(true)
+    
+    // 健康检查
+    const healthCheck = async () => {
+      try {
+        console.log('🔍 开始后台健康检查...')
+        const response = await api.health()
+        console.log('✅ 后台健康检查成功:', response)
+      } catch (error) {
+        console.error('❌ 健康检查失败:', error)
+      }
+    }
+    
+    healthCheck()
   }, [])
 
   // 将 TABS 移到 useEffect 中，确保 t 函数已经准备好
@@ -53,18 +74,42 @@ export default function ImageConverter() {
   useEffect(() => {
     const savedUser = localStorage.getItem('user')
     if (savedUser) {
-      setUser(JSON.parse(savedUser))
+      try {
+        const parsedUser = JSON.parse(savedUser)
+        // 确保日期字段被正确解析为 Date 对象
+        if (parsedUser.membership) {
+          parsedUser.membership.startDate = safeCreateDate(parsedUser.membership.startDate)
+          parsedUser.membership.endDate = safeCreateDate(parsedUser.membership.endDate)
+        }
+        if (parsedUser.createdAt) {
+          parsedUser.createdAt = safeCreateDate(parsedUser.createdAt)
+        }
+        if (parsedUser.lastLoginAt) {
+          parsedUser.lastLoginAt = safeCreateDate(parsedUser.lastLoginAt)
+        }
+        setUser(parsedUser)
+      } catch (error) {
+        console.error('解析用户数据失败:', error)
+        // 如果解析失败，创建默认用户
+        createDefaultUser()
+      }
     } else {
-      // 创建默认游客用户
-      const guestUser: UserType = {
-        id: 'guest',
-        email: 'guest@example.com',
-        name: '游客用户',
-        isLoggedIn: false,
+      createDefaultUser()
+    }
+  }, [])
+
+  // 创建默认用户
+  const createDefaultUser = () => {
+    // 创建默认游客用户
+    const guestUser: UserType = {
+      id: 'guest',
+      email: 'guest@example.com',
+      name: '游客用户',
+      isLoggedIn: false,
         membership: {
           type: 'free',
           startDate: new Date(),
-          endDate: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000), // 1年后
+          endDate: createFutureDate(365), // 1年后
           isActive: true,
           dailyUsage: 0,
           maxDailyUsage: 5,
@@ -77,7 +122,6 @@ export default function ImageConverter() {
       }
       setUser(guestUser)
     }
-  }, [])
 
   // 保存用户数据到本地存储
   useEffect(() => {
@@ -97,59 +141,128 @@ export default function ImageConverter() {
   }, [])
 
   // 用户登录
-  const handleLogin = useCallback((email: string, password: string) => {
-    // 模拟登录逻辑
-    const loggedInUser: UserType = {
-      id: 'user_' + Date.now(),
-      email,
-      name: email.split('@')[0],
-      isLoggedIn: true,
-      membership: {
-        type: 'free',
-        startDate: new Date(),
-        endDate: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000),
-        isActive: true,
-        dailyUsage: 0,
-        maxDailyUsage: 5,
-        totalStorage: 100 * 1024 * 1024,
-        usedStorage: 0,
-        features: ['基础格式转换', '每日5张图片处理']
-      },
-      createdAt: new Date(),
-      lastLoginAt: new Date()
+  const handleLogin = useCallback(async (email: string, password: string) => {
+    setIsLoading(true)
+    try {
+      console.log('准备发送登录请求:', { username: email, password: password })
+      
+      // 调用后台登录API
+      const loginResult = await userApi.login({ 
+        username: email, 
+        password: password 
+      })
+      
+      console.log('登录成功:', loginResult)
+      
+      // 保存token到本地存储
+      if (loginResult.token) {
+        // 导入tokenManager
+        const { tokenManager } = await import('@/app/lib/request');
+        tokenManager.setToken(loginResult.token);
+        console.log('Token已保存:', loginResult.token);
+      }
+      
+      // 根据API返回结果创建用户对象
+      const loggedInUser: UserType = {
+        id: loginResult.user.id || 'user_' + Date.now(),
+        email: loginResult.user.email || email,
+        name: loginResult.user.name || email.split('@')[0],
+        isLoggedIn: true,
+        membership: {
+          type: 'free', // 默认免费用户
+          startDate: safeCreateDate(loginResult.user.createdAt),
+          endDate: createFutureDate(365),
+          isActive: true,
+          dailyUsage: 0,
+          maxDailyUsage: 5,
+          totalStorage: 100 * 1024 * 1024, // 100MB
+          usedStorage: 0,
+          features: ['基础格式转换', '每日5张图片处理']
+        },
+        createdAt: safeCreateDate(loginResult.user.createdAt),
+        lastLoginAt: new Date()
+      }
+      
+      setUser(loggedInUser)
+      setShowLoginModal(false)
+      
+      // 显示成功消息
+      alert('登录成功！')
+      
+    } catch (error) {
+      console.error('登录失败:', error)
+      // 显示错误消息
+      alert('登录失败：' + (error instanceof Error ? error.message : '未知错误'))
+    } finally {
+      setIsLoading(false)
     }
-    setUser(loggedInUser)
-    setShowLoginModal(false)
   }, [])
 
   // 用户注册
-  const handleRegister = useCallback((name: string, email: string, password: string) => {
-    // 模拟注册逻辑
-    const newUser: UserType = {
-      id: 'user_' + Date.now(),
-      email,
-      name,
-      isLoggedIn: true,
-      membership: {
-        type: 'free',
-        startDate: new Date(),
-        endDate: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000),
-        isActive: true,
-        dailyUsage: 0,
-        maxDailyUsage: 5,
-        totalStorage: 100 * 1024 * 1024,
-        usedStorage: 0,
-        features: ['基础格式转换', '每日5张图片处理']
-      },
-      createdAt: new Date(),
-      lastLoginAt: new Date()
+  const handleRegister = useCallback(async (name: string, email: string, password: string) => {
+    setIsLoading(true)
+    try {
+      // 调用后台注册API
+      const registerResult = await userApi.register({ 
+        username: email, 
+        password: password,
+        email: email,
+        name: name
+      })
+      
+      console.log('注册成功:', registerResult)
+      
+      // 保存token到本地存储
+      if (registerResult.token) {
+        // 导入tokenManager
+        const { tokenManager } = await import('@/app/lib/request');
+        tokenManager.setToken(registerResult.token);
+        console.log('Token已保存:', registerResult.token);
+      }
+      
+      // 根据API返回结果创建用户对象
+      const newUser: UserType = {
+        id: registerResult.user.id || 'user_' + Date.now(),
+        email: registerResult.user.email || email,
+        name: registerResult.user.name || name,
+        isLoggedIn: true,
+        membership: {
+          type: 'free', // 默认免费用户
+          startDate: safeCreateDate(registerResult.user.createdAt),
+          endDate: createFutureDate(365),
+          isActive: true,
+          dailyUsage: 0,
+          maxDailyUsage: 5,
+          totalStorage: 100 * 1024 * 1024, // 100MB
+          usedStorage: 0,
+          features: ['基础格式转换', '每日5张图片处理']
+        },
+        createdAt: safeCreateDate(registerResult.user.createdAt),
+        lastLoginAt: new Date()
+      }
+      
+      setUser(newUser)
+      setShowLoginModal(false)
+      
+      // 显示成功消息
+      alert('注册成功！')
+      
+    } catch (error) {
+      console.error('注册失败:', error)
+      // 显示错误消息
+      alert('注册失败：' + (error instanceof Error ? error.message : '未知错误'))
+    } finally {
+      setIsLoading(false)
     }
-    setUser(newUser)
-    setShowLoginModal(false)
   }, [])
 
   // 用户登出
-  const handleLogout = useCallback(() => {
+  const handleLogout = useCallback(async () => {
+    // 清除token
+    const { tokenManager } = await import('@/app/lib/request');
+    tokenManager.clearToken();
+    console.log('Token已清除');
+    
     const guestUser: UserType = {
       id: 'guest',
       email: 'guest@example.com',
@@ -158,7 +271,7 @@ export default function ImageConverter() {
       membership: {
         type: 'free',
         startDate: new Date(),
-        endDate: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000),
+          endDate: createFutureDate(365),
         isActive: true,
         dailyUsage: 0,
         maxDailyUsage: 5,
@@ -180,7 +293,7 @@ export default function ImageConverter() {
     const newMembership: Membership = {
       type,
       startDate: new Date(),
-      endDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000), // 30天
+      endDate: createFutureDate(30), // 30天
       isActive: true,
       dailyUsage: user.membership.dailyUsage,
       maxDailyUsage: type === 'premium' ? 999999 : 100,
@@ -340,6 +453,7 @@ export default function ImageConverter() {
         onClose={() => setShowLoginModal(false)}
         onLogin={handleLogin}
         onRegister={handleRegister}
+        isLoading={isLoading}
       />
 
       <MembershipModal

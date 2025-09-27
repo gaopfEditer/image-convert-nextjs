@@ -1,0 +1,19 @@
+.upload-area {
+  @apply border-2 border-dashed border-gray-300 rounded-lg p-8 text-center cursor-pointer transition-all duration-200;
+}
+
+.upload-area:hover {
+  @apply border-blue-400 bg-blue-50;
+}
+
+.upload-area.dragover {
+  @apply border-blue-500 bg-blue-100;
+}
+
+.upload-area.disabled {
+  @apply cursor-not-allowed opacity-50;
+}
+
+.upload-area.disabled:hover {
+  @apply border-gray-300 bg-transparent;
+}

@@ -7,23 +7,31 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "type-check": "tsc --noEmit"
+    "type-check": "tsc --noEmit",
+    "start:dev": "cross-env NODE_ENV=dev NEXT_PUBLIC_API_URL=https://bz.e.gaopf.top next dev",
+    "start:local": "cross-env NODE_ENV=local NEXT_PUBLIC_API_URL=http://localhost:8000 next dev -p 3001",
+    "start:prod": "cross-env NODE_ENV=production NEXT_PUBLIC_API_URL=https://bz.e.gaopf.top next build && next start",
+    "build:prod": "cross-env NODE_ENV=production NEXT_PUBLIC_API_URL=https://bz.e.gaopf.top next build",
+    "export:prod": "cross-env NODE_ENV=production NEXT_PUBLIC_API_URL=https://bz.e.gaopf.top next build && next export"
   },
   "dependencies": {
+    "axios": "^1.12.2",
+    "lucide-react": "^0.294.0",
     "next": "14.0.0",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "lucide-react": "^0.294.0"
+    "react-dom": "^18.2.0"
   },
   "devDependencies": {
     "@types/node": "^20.0.0",
     "@types/react": "^18.2.0",
     "@types/react-dom": "^18.2.0",
+    "autoprefixer": "^10.4.0",
+    "cross-env": "^10.0.0",
+    "dotenv": "^17.2.2",
     "eslint": "^8.0.0",
     "eslint-config-next": "14.0.0",
-    "typescript": "^5.0.0",
+    "postcss": "^8.4.0",
     "tailwindcss": "^3.3.0",
-    "autoprefixer": "^10.4.0",
-    "postcss": "^8.4.0"
+    "typescript": "^5.0.0"
   }
 }

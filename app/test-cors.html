@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CORS测试</title>
+</head>
+<body>
+    <h1>CORS测试页面</h1>
+    <button onclick="testCORS()">测试CORS</button>
+    <div id="result"></div>
+
+    <script>
+        async function testCORS() {
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = '测试中...';
+            
+            try {
+                const response = await fetch('http://localhost:8000/api/auth/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        username: 'admin@example.com',
+                        password: '123456'
+                    })
+                });
+                
+                console.log('Response status:', response.status);
+                console.log('Response headers:', response.headers);
+                
+                const data = await response.json();
+                console.log('Response data:', data);
+                
+                resultDiv.innerHTML = `
+                    <h3>成功!</h3>
+                    <p>状态码: ${response.status}</p>
+                    <p>响应: ${JSON.stringify(data, null, 2)}</p>
+                `;
+            } catch (error) {
+                console.error('CORS错误:', error);
+                resultDiv.innerHTML = `
+                    <h3>错误!</h3>
+                    <p>错误信息: ${error.message}</p>
+                    <p>错误类型: ${error.name}</p>
+                `;
+            }
+        }
+    </script>
+</body>
+</html>
