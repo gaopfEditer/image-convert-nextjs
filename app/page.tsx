@@ -324,14 +324,7 @@ export default function ImageConverter() {
                 </button>
               ))}
             </div>
-            <button
-              onClick={() => setShowFeatureGuide(true)}
-              className="flex items-center space-x-2 px-4 py-3 text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-all"
-              title={isClient ? t('common.help') : '帮助'}
-            >
-              <HelpCircle size={20} />
-              <span className="hidden md:block font-medium">{isClient ? t('common.help') : '帮助'}</span>
-            </button>
+            
           </div>
         </div>
 
