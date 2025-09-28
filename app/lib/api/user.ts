@@ -29,6 +29,21 @@ export interface LoginResponse {
   expiresIn: number;
 }
 
+// 第三方登录相关类型
+export interface WechatLoginData {
+  code: string;
+  state?: string;
+}
+
+export interface GoogleLoginData {
+  idToken: string;
+  accessToken?: string;
+}
+
+export interface ThirdPartyLoginResponse extends LoginResponse {
+  loginType: 'wechat' | 'google' | 'email';
+}
+
 // 用户相关 API
 export const userApi = {
   // 登录
@@ -74,5 +89,49 @@ export const userApi = {
   // 删除账户
   deleteAccount: (): Promise<void> => {
     return api.delete('/api/user/account');
+  },
+
+  // 微信登录
+  wechatLogin: (data: WechatLoginData): Promise<ThirdPartyLoginResponse> => {
+    return api.post('/api/auth/wechat-login', data);
+  },
+
+  // Google登录
+  googleLogin: (data: GoogleLoginData): Promise<ThirdPartyLoginResponse> => {
+    return api.post('/api/auth/google-login', data);
+  },
+
+  // 获取微信登录URL
+  getWechatLoginUrl: (): Promise<{ url: string; state: string }> => {
+    return api.get('/api/auth/wechat-login-url');
+  },
+
+  // 获取Google登录URL
+  getGoogleLoginUrl: (): Promise<{ url: string; state: string }> => {
+    return api.get('/api/auth/google-login-url');
+  },
+
+  // Auth0回调处理
+  auth0Callback: (data: { code: string; state?: string }): Promise<ThirdPartyLoginResponse> => {
+    return api.post('/api/auth/auth0-callback', data);
+  },
+
+  // 验证Auth0 token
+  validateAuth0Token: (data: { token: string }): Promise<{ user: UserProfile; valid: boolean }> => {
+    return api.post('/api/auth/validate-token', data);
+  },
+
+  // Auth0完成登录
+  completeAuth0Login: (data: { code: string; state: string }): Promise<{
+    access_token: string;
+    user: {
+      id: string;
+      username: string;
+      email: string;
+      name?: string;
+      avatar?: string;
+    };
+  }> => {
+    return api.post('/api/auth/auth0/complete-login', data);
   },
 };

@@ -2,12 +2,21 @@
 export { userApi } from './user';
 export { imageApi } from './image';
 export { statsApi } from './stats';
+export { healthApi } from './health';
 
 // 导出基础请求方法
 export { api, apiClient, request, tokenManager } from '../request';
 
 // 导出类型定义
-export type { LoginCredentials, RegisterData, UserProfile, LoginResponse } from './user';
+export type { 
+  LoginCredentials, 
+  RegisterData, 
+  UserProfile, 
+  LoginResponse,
+  WechatLoginData,
+  GoogleLoginData,
+  ThirdPartyLoginResponse
+} from './user';
 export type { 
   ImageConvertOptions, 
   ImageCropOptions, 
@@ -23,3 +32,4 @@ export type {
   UsageHistory, 
   ApiUsage 
 } from './stats';
+export type { HealthResponse, RegionInfo } from './health';

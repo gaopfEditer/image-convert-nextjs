@@ -62,7 +62,7 @@ export const imageApi = {
   convert: (file: File, options: ImageConvertOptions): Promise<ImageProcessResult> => {
     const formData = new FormData();
     formData.append('file', file);
-    formData.append('format', options.format);
+    formData.append('target_format', options.format);
     
     if (options.quality) {
       formData.append('quality', options.quality.toString());
@@ -75,6 +75,45 @@ export const imageApi = {
     }
     
     return api.upload('/api/image/convert', formData);
+  },
+
+  // 下载图片
+  downloadImage: (url: string, filename: string): Promise<void> => {
+    return new Promise((resolve, reject) => {
+      try {
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = filename;
+        link.target = '_blank';
+        
+        // 添加到DOM，触发点击，然后移除
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        
+        resolve();
+      } catch (error) {
+        reject(error);
+      }
+    });
+  },
+
+  // 预览图片
+  previewImage: (url: string): Promise<string> => {
+    return new Promise((resolve, reject) => {
+      const img = new Image();
+      img.crossOrigin = 'anonymous';
+      
+      img.onload = () => {
+        resolve(url);
+      };
+      
+      img.onerror = () => {
+        reject(new Error('图片加载失败'));
+      };
+      
+      img.src = url;
+    });
   },
 
   // 压缩图片

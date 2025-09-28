@@ -3,7 +3,6 @@
 import { useState, useCallback, useEffect } from 'react'
 import { Image as ImageIcon, LogIn, User, HelpCircle, Crown } from 'lucide-react'
 import { 
-  LoginModal, 
   UserProfile, 
   MembershipModal, 
   FeatureGuide,
@@ -13,13 +12,15 @@ import {
   AIFeatures 
 } from './pages'
 import { 
-  LocaleSelector
+  LocaleSelector,
+  EnhancedLoginModal
 } from './components'
 import { User as UserType, Membership, HistoryRecord } from './types/user'
 import { useI18nContext } from './i18n/context'
 import { safeCreateDate, createFutureDate } from './lib/dateUtils'
 import { userApi, api } from './lib/api'
 import { useUser } from './hooks/useUser'
+import { useAuth0Success } from './hooks/useAuth0Success'
 
 export default function ImageConverter() {
   const { t, locale } = useI18nContext()
@@ -32,21 +33,108 @@ export default function ImageConverter() {
   const [isClient, setIsClient] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
 
+  // 监听Auth0登录成功事件
+  useAuth0Success()
+
+  // 监听用户登录成功事件
+  useEffect(() => {
+    const handleUserLoginSuccess = (event: CustomEvent) => {
+      const userData = event.detail
+      console.log('收到用户登录成功事件:', userData)
+      
+      // 更新用户状态
+      const auth0User: UserType = {
+        id: userData.id,
+        email: userData.email,
+        name: userData.name || userData.username,
+        isLoggedIn: true,
+        membership: {
+          type: 'free',
+          startDate: new Date(),
+          endDate: createFutureDate(365),
+          isActive: true,
+          dailyUsage: 0,
+          maxDailyUsage: 5,
+          totalStorage: 100 * 1024 * 1024,
+          usedStorage: 0,
+          features: ['基础格式转换', '每日5张图片处理']
+        },
+        createdAt: new Date(),
+        lastLoginAt: new Date()
+      }
+      
+      setUser(auth0User)
+      console.log('用户状态已更新:', auth0User)
+    }
+
+    // 监听用户登录成功事件
+    window.addEventListener('userLoginSuccess', handleUserLoginSuccess as EventListener)
+
+    return () => {
+      window.removeEventListener('userLoginSuccess', handleUserLoginSuccess as EventListener)
+    }
+  }, [])
+
   // 客户端挂载标记和健康检查
   useEffect(() => {
     setIsClient(true)
     
-    // 健康检查
+    // 检查是否有Auth0登录的用户信息
+    const checkAuth0User = () => {
+      try {
+        const authUser = localStorage.getItem('auth_user')
+        const authToken = localStorage.getItem('auth_token')
+        
+        if (authUser && authToken) {
+          const userData = JSON.parse(authUser)
+          console.log('发现Auth0用户信息:', userData)
+          
+          // 更新用户状态
+          const auth0User: UserType = {
+            id: userData.id,
+            email: userData.email,
+            name: userData.name || userData.username,
+            isLoggedIn: true,
+            membership: {
+              type: 'free',
+              startDate: new Date(),
+              endDate: createFutureDate(365),
+              isActive: true,
+              dailyUsage: 0,
+              maxDailyUsage: 5,
+              totalStorage: 100 * 1024 * 1024,
+              usedStorage: 0,
+              features: ['基础格式转换', '每日5张图片处理']
+            },
+            createdAt: new Date(),
+            lastLoginAt: new Date()
+          }
+          
+          setUser(auth0User)
+          console.log('Auth0用户状态已更新')
+        }
+      } catch (error) {
+        console.error('检查Auth0用户信息失败:', error)
+      }
+    }
+    
+    checkAuth0User()
+    
+    // 健康检查（延迟执行，避免与其他请求冲突）
     const healthCheck = async () => {
       try {
+        // 延迟5秒执行健康检查，给axios更多时间
+        await new Promise(resolve => setTimeout(resolve, 5000))
         console.log('🔍 开始后台健康检查...')
         const response = await api.health()
         console.log('✅ 后台健康检查成功:', response)
       } catch (error) {
         console.error('❌ 健康检查失败:', error)
+        // 健康检查失败不影响主要功能，只记录错误
       }
     }
     
+    // 异步执行健康检查，不阻塞页面加载
     healthCheck()
   }, [])
 
@@ -256,6 +344,64 @@ export default function ImageConverter() {
     }
   }, [])
 
+  // 第三方登录处理
+  const handleThirdPartyLogin = useCallback(async (loginType: 'wechat' | 'google', data: any) => {
+    setIsLoading(true)
+    try {
+      let loginResult
+      
+      if (loginType === 'wechat') {
+        loginResult = await userApi.wechatLogin(data)
+      } else if (loginType === 'google') {
+        loginResult = await userApi.googleLogin(data)
+      } else {
+        throw new Error('不支持的登录类型')
+      }
+      
+      console.log(`${loginType}登录成功:`, loginResult)
+      
+      // 保存token到本地存储
+      if (loginResult.token) {
+        const { tokenManager } = await import('@/app/lib/request');
+        tokenManager.setToken(loginResult.token);
+        console.log('Token已保存:', loginResult.token);
+      }
+      
+      // 根据API返回结果创建用户对象
+      const newUser: UserType = {
+        id: loginResult.user.id || 'user_' + Date.now(),
+        email: loginResult.user.email || '',
+        name: loginResult.user.name || loginResult.user.username,
+        isLoggedIn: true,
+        membership: {
+          type: 'free',
+          startDate: safeCreateDate(loginResult.user.createdAt),
+          endDate: createFutureDate(365),
+          isActive: true,
+          dailyUsage: 0,
+          maxDailyUsage: 5,
+          totalStorage: 100 * 1024 * 1024,
+          usedStorage: 0,
+          features: ['基础格式转换', '每日5张图片处理']
+        },
+        createdAt: safeCreateDate(loginResult.user.createdAt),
+        lastLoginAt: new Date()
+      }
+      
+      setUser(newUser)
+      setShowLoginModal(false)
+      
+      // 显示成功消息
+      alert(`${loginType === 'wechat' ? '微信' : 'Google'}登录成功！`)
+      
+    } catch (error) {
+      console.error(`${loginType}登录失败:`, error)
+      alert(`${loginType === 'wechat' ? '微信' : 'Google'}登录失败，请重试`)
+    } finally {
+      setIsLoading(false)
+    }
+  }, [])
+
   // 用户登出
   const handleLogout = useCallback(async () => {
     // 清除token
@@ -355,10 +501,10 @@ export default function ImageConverter() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 pt-8">
       <div className="container mx-auto px-4 py-8">
         {/* 头部 */}
-        <div className="text-center mb-8">
+        {/* <div className="text-center mb-8">
           <h1 className="text-4xl font-bold text-gray-800 mb-4">
             <ImageIcon className="inline-block mr-3" size={40} />
             {isClient ? t('header.title') : '专业图片处理工具'}
@@ -366,7 +512,7 @@ export default function ImageConverter() {
           <p className="text-lg text-gray-600">
             {isClient ? t('header.subtitle') : '支持格式转换、压缩优化、裁剪缩放、AI处理等多种功能'}
           </p>
-        </div>
+        </div> */}
 
         {/* 用户信息栏 */}
         <div className="bg-white rounded-xl shadow-lg p-4 mb-8">
@@ -448,11 +594,12 @@ export default function ImageConverter() {
       </div>
 
       {/* 模态框 */}
-      <LoginModal
+      <EnhancedLoginModal
         isOpen={showLoginModal}
         onClose={() => setShowLoginModal(false)}
         onLogin={handleLogin}
         onRegister={handleRegister}
+        onThirdPartyLogin={handleThirdPartyLogin}
         isLoading={isLoading}
       />
 
